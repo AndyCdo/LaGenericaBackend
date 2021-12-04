@@ -1,0 +1,181 @@
+[{
+  "_id": {
+    "$oid": "61aa99af40d5dded90a78147"
+  },
+  "nit_proveedor": 1,
+  "nombre_producto": "melocotones",
+  "codigo_producto": 1,
+  "precio_venta": 30351,
+  "iva_compra": 19,
+  "precio_compra": 25505
+},{
+  "_id": {
+    "$oid": "61ab87db623eb8bfd96e22c5"
+  },
+  "nit_proveedor": 3,
+  "nombre_producto": "manzanas",
+  "codigo_producto": 2,
+  "precio_venta": 21549,
+  "iva_compra": 19,
+  "precio_compra": 18108
+},{
+  "_id": {
+    "$oid": "61ab8805623eb8bfd96e22c6"
+  },
+  "nit_proveedor": 4,
+  "nombre_producto": "platanos",
+  "codigo_producto": 3,
+  "precio_venta": 35320,
+  "iva_compra": 19,
+  "precio_compra": 29681
+},{
+  "_id": {
+    "$oid": "61ab8839623eb8bfd96e22c7"
+  },
+  "nit_proveedor": 3,
+  "nombre_producto": "lechuga",
+  "codigo_producto": 4,
+  "precio_venta": 35448,
+  "iva_compra": 19,
+  "precio_compra": 29788
+},{
+  "_id": {
+    "$oid": "61ab885b623eb8bfd96e22c8"
+  },
+  "nit_proveedor": 1,
+  "nombre_producto": "tomates",
+  "codigo_producto": 5,
+  "precio_venta": 15159,
+  "iva_compra": 19,
+  "precio_compra": 12739
+},{
+  "_id": {
+    "$oid": "61ab8882623eb8bfd96e22c9"
+  },
+  "nit_proveedor": 1,
+  "nombre_producto": "calabaza",
+  "codigo_producto": 6,
+  "precio_venta": 25365,
+  "iva_compra": 19,
+  "precio_compra": 21315
+},{
+  "_id": {
+    "$oid": "61ab88ad623eb8bfd96e22ca"
+  },
+  "nit_proveedor": 2,
+  "nombre_producto": "apio",
+  "codigo_producto": 7,
+  "precio_venta": 22906,
+  "iva_compra": 19,
+  "precio_compra": 19249
+},{
+  "_id": {
+    "$oid": "61ab88ce623eb8bfd96e22cb"
+  },
+  "nit_proveedor": 2,
+  "nombre_producto": "pepino",
+  "codigo_producto": 8,
+  "precio_venta": 13040,
+  "iva_compra": 19,
+  "precio_compra": 10958
+},{
+  "_id": {
+    "$oid": "61ab88f6623eb8bfd96e22cc"
+  },
+  "nit_proveedor": 2,
+  "nombre_producto": "champinones",
+  "codigo_producto": 9,
+  "precio_venta": 13145,
+  "iva_compra": 19,
+  "precio_compra": 11046
+},{
+  "_id": {
+    "$oid": "61ab891a623eb8bfd96e22cd"
+  },
+  "nit_proveedor": 5,
+  "nombre_producto": "leche",
+  "codigo_producto": 10,
+  "precio_venta": 25169,
+  "iva_compra": 19,
+  "precio_compra": 21150
+},{
+  "_id": {
+    "$oid": "61ab8940623eb8bfd96e22ce"
+  },
+  "nit_proveedor": 2,
+  "nombre_producto": "huevos",
+  "codigo_producto": 12,
+  "precio_venta": 14810,
+  "iva_compra": 19,
+  "precio_compra": 12445
+},{
+  "_id": {
+    "$oid": "61ab8999623eb8bfd96e22cf"
+  },
+  "nit_proveedor": 5,
+  "nombre_producto": "queso",
+  "codigo_producto": 11,
+  "precio_venta": 31619,
+  "iva_compra": 19,
+  "precio_compra": 26571
+},{
+  "_id": {
+    "$oid": "61ab89c5623eb8bfd96e22d0"
+  },
+  "nit_proveedor": 1,
+  "nombre_producto": "requeson",
+  "codigo_producto": 13,
+  "precio_venta": 17052,
+  "iva_compra": 19,
+  "precio_compra": 14329
+},{
+  "_id": {
+    "$oid": "61ab89fb623eb8bfd96e22d1"
+  },
+  "nit_proveedor": 1,
+  "nombre_producto": "crema_agria",
+  "codigo_producto": 14,
+  "precio_venta": 17679,
+  "iva_compra": 19,
+  "precio_compra": 14856
+},{
+  "_id": {
+    "$oid": "61ab8a27623eb8bfd96e22d2"
+  },
+  "nit_proveedor": 5,
+  "nombre_producto": "yogur",
+  "codigo_producto": 15,
+  "precio_venta": 17780,
+  "iva_compra": 19,
+  "precio_compra": 14941
+},{
+  "_id": {
+    "$oid": "61ab8a4b623eb8bfd96e22d3"
+  },
+  "nit_proveedor": 5,
+  "nombre_producto": "ternera",
+  "codigo_producto": 16,
+  "precio_venta": 34909,
+  "iva_compra": 19,
+  "precio_compra": 29335
+},{
+  "_id": {
+    "$oid": "61ab8a71623eb8bfd96e22d4"
+  },
+  "nit_proveedor": 5,
+  "nombre_producto": "salmon_salvaje",
+  "codigo_producto": 17,
+  "precio_venta": 14135,
+  "iva_compra": 19,
+  "precio_compra": 11878
+},{
+  "_id": {
+    "$oid": "61ab8aa0623eb8bfd96e22d5"
+  },
+  "nit_proveedor": 1,
+  "nombre_producto": "patas_cangrejo",
+  "codigo_producto": 18,
+  "precio_venta": 35642,
+  "iva_compra": 19,
+  "precio_compra": 29951
+}]
