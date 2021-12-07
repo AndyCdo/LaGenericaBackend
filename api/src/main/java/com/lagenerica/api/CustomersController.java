@@ -1,57 +1,50 @@
 package com.lagenerica.api;
+
 import java.util.ArrayList;
-import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.lagenerica.api.DAO.CustomersDAO;
 import com.lagenerica.api.DTO.CustomersDTO;
 
 @RestController
+@CrossOrigin
+@RequestMapping("/customers")
 public class CustomersController {
-	
-	@RequestMapping(
-	        value = "/customers",
-	        method = RequestMethod.POST,
-	        consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+
+	@PostMapping("")
 	public CustomersDTO create(@RequestBody CustomersDTO customer) {
 		CustomersDAO DAO = new CustomersDAO();
-		return DAO.create(customer);	
+		return DAO.create(customer);
 	}
-	
-	@RequestMapping(
-	        value = "/customers/{id}",
-	        method = RequestMethod.PUT,
-	        consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+
+	@PutMapping("/{id}")
 	public CustomersDTO update(@PathVariable("id") int id, @RequestBody CustomersDTO customer) {
 		CustomersDAO DAO = new CustomersDAO();
-		return DAO.update(id, customer);	
-	
+		return DAO.update(id, customer);
 	}
 
-	@RequestMapping(
-	        value = "/customers",
-	        method = RequestMethod.GET)
+	@GetMapping("")
 	public ArrayList<CustomersDTO> list() {
 		CustomersDAO DAO = new CustomersDAO();
-		return DAO.list();	
+		return DAO.list();
 	}
 
-	@RequestMapping(
-	        value = "/customers/{id}",
-	        method = RequestMethod.GET)
+	@GetMapping("/{id}")
 	public CustomersDTO get(@PathVariable("id") int id) {
 		CustomersDAO DAO = new CustomersDAO();
-		return DAO.get(id);	
+		return DAO.get(id);
 	}
 
-	@RequestMapping(
-	        value = "/customers/{id}",
-	        method = RequestMethod.DELETE)
+	@DeleteMapping("/{id}")
 	public Boolean delete(@PathVariable("id") int id) {
 		CustomersDAO DAO = new CustomersDAO();
-		return DAO.delete(id);	
+		return DAO.delete(id);
 	}
 }
