@@ -7,13 +7,13 @@ public class ProductsDTO {
 		// TODO Auto-generated constructor stub
 	}
 	private Integer code;
-	private Integer iva;
+	private Double iva;
 	private Integer provider;
 	private String name;
 	private Integer salePrice;
 	private Integer purchasePrice;
 	
-	public ProductsDTO(Integer code, Integer iva, Integer provider, String name, Integer salePrice,
+	public ProductsDTO(Integer code, Double iva, Integer provider, String name, Integer salePrice,
 			Integer purchasePrice) {
 		super();
 		this.code = code;
@@ -29,10 +29,10 @@ public class ProductsDTO {
 	public void setCode(Integer code) {
 		this.code = code;
 	}
-	public Integer getIva() {
+	public Double getIva() {
 		return iva;
 	}
-	public void setIva(Integer iva) {
+	public void setIva(Double iva) {
 		this.iva = iva;
 	}
 	public Integer getProvider() {

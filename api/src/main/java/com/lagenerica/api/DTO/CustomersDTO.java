@@ -10,7 +10,6 @@ public class CustomersDTO {
 	
 	public CustomersDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public CustomersDTO(Integer identification, String address, String email, String name, String phone) {
 		super();

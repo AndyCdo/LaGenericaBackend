@@ -60,7 +60,7 @@ public class ProductsDAO {
 		DBCursor cursor = collection.find(query);
 		while(cursor.hasNext()){
             DBObject resultObject = cursor.next();
-            ProductsDTO user = new ProductsDTO(Integer.parseInt(resultObject.get("code").toString()),Integer.parseInt(resultObject.get("iva").toString()), Integer.parseInt(resultObject.get("provider").toString()), resultObject.get("name").toString(), Integer.parseInt(resultObject.get("salePrice").toString()), Integer.parseInt(resultObject.get("purchasePrice").toString()));
+            ProductsDTO user = new ProductsDTO(Integer.parseInt(resultObject.get("code").toString()),Double.parseDouble(resultObject.get("iva").toString()), Integer.parseInt(resultObject.get("provider").toString()), resultObject.get("name").toString(), Integer.parseInt(resultObject.get("salePrice").toString()), Integer.parseInt(resultObject.get("purchasePrice").toString()));
             list.add(user);
 		}
         connection.disconect();
@@ -77,7 +77,7 @@ public class ProductsDAO {
 		while(cursor.hasNext()){
             DBObject resultObject = cursor.next();
             connection.disconect();
-            return new ProductsDTO(Integer.parseInt(resultObject.get("code").toString()),Integer.parseInt(resultObject.get("iva").toString()), Integer.parseInt(resultObject.get("provider").toString()), resultObject.get("name").toString(), Integer.parseInt(resultObject.get("salePrice").toString()), Integer.parseInt(resultObject.get("purchasePrice").toString()));
+            return new ProductsDTO(Integer.parseInt(resultObject.get("code").toString()),Double.parseDouble(resultObject.get("iva").toString()), Integer.parseInt(resultObject.get("provider").toString()), resultObject.get("name").toString(), Integer.parseInt(resultObject.get("salePrice").toString()), Integer.parseInt(resultObject.get("purchasePrice").toString()));
 		}
         return null;
     }
