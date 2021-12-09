@@ -33,4 +33,12 @@ public class SalesController {
 		return DAO.getLast();
 	}
 
+	@GetMapping("/customer")
+	public ArrayList<SalesDTO> listByCustomer() {
+		SalesDAO DAO = new SalesDAO();
+		return DAO.listByCustomer();
+	}
+
+
+
 }

@@ -105,6 +105,47 @@ public class SalesDAO {
         return list;
     }
 
+    public ArrayList<SalesDTO> listByCustomer() {
+        ArrayList<SalesDTO> list = new ArrayList<SalesDTO>();
+
+        MyConnection connection = new MyConnection();
+        DBCollection collection = connection.database().getCollection("sales");
+        DBCollection collectionCustomer = connection.database().getCollection("customers");
+
+        DBObject query = BasicDBObjectBuilder.start().get();
+        DBCursor cursor = collection.find(query);
+        while (cursor.hasNext()) {
+            DBObject resultObject = cursor.next();
+
+            
+
+            ArrayList<SalesDetailsDTO> listDetails = new ArrayList<SalesDetailsDTO>();
+            BasicDBList saleDetailsList = (BasicDBList) resultObject.get("details");
+            for (Object detail : saleDetailsList.toArray()) {
+                BasicDBObject saleDatail = (BasicDBObject) detail;
+
+                SalesDetailsDTO obj = new SalesDetailsDTO(saleDatail.getInt("amount"), saleDatail.getInt("code"),
+                        saleDatail.getDouble("total"), saleDatail.getDouble("value"), saleDatail.getDouble("iva"));
+                listDetails.add(obj);
+            }
+            SalesDTO sale = new SalesDTO(Integer.parseInt(resultObject.get("code").toString()),
+                    Integer.parseInt(resultObject.get("identification").toString()), listDetails,
+                    Integer.parseInt(resultObject.get("total").toString()),
+                    Integer.parseInt(resultObject.get("value").toString()));
+        DBObject queryCustomer = BasicDBObjectBuilder.start().add("identification", sale.getIdentification()).get();
+        DBCursor cursorCustomer = collectionCustomer.find(queryCustomer);
+        while (cursorCustomer.hasNext()){
+            DBObject customer = cursorCustomer.next();
+            sale.setCustomerName(customer.get("name").toString());
+            
+        }
+
+            list.add(sale);
+        }
+
+        return list;
+    }
+
     public SalesDTO get(Integer id) {
         MyConnection connection = new MyConnection();
         DBCollection collection = connection.database().getCollection("sales");

@@ -9,7 +9,16 @@ public class SalesDTO {
 	private ArrayList<SalesDetailsDTO> details;
 	private Integer total;
 	private Integer value;
+	private String customerName;
 	
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
 	public SalesDTO() {
 		super();
 	}
