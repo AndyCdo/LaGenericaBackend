@@ -1,6 +1,7 @@
 package com.lagenerica.api.DAO;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import com.lagenerica.api.DTO.ProductsDTO;
 import com.mongodb.BasicDBObjectBuilder;
@@ -9,6 +10,13 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 public class ProductsDAO {
+
+    private String city;
+    
+    public ProductsDAO(String city) {
+        this.city = city;
+    }
+
 
     private static DBObject createDBObject(ProductsDTO user) {
 		BasicDBObjectBuilder docBuilder = BasicDBObjectBuilder.start();
@@ -27,7 +35,7 @@ public class ProductsDAO {
         DBObject doc = createDBObject(user);
 
         MyConnection connection = new MyConnection();
-		DBCollection collection = connection.database().getCollection("products");
+		DBCollection collection = connection.database(Optional.of(city)).getCollection("products");
 
         collection.insert(doc);
 
@@ -40,7 +48,7 @@ public class ProductsDAO {
         DBObject doc = createDBObject(user);
 
         MyConnection connection = new MyConnection();
-		DBCollection collection = connection.database().getCollection("products");
+		DBCollection collection = connection.database(Optional.of(city)).getCollection("products");
         DBObject query = BasicDBObjectBuilder.start().add("code", id).get();
 
 		collection.update(query, doc);
@@ -54,7 +62,7 @@ public class ProductsDAO {
         ArrayList<ProductsDTO> list =  new ArrayList<ProductsDTO>();
 
         MyConnection connection = new MyConnection();
-		DBCollection collection = connection.database().getCollection("products");
+		DBCollection collection = connection.database(Optional.of(city)).getCollection("products");
         
 		DBObject query = BasicDBObjectBuilder.start().get();
 		DBCursor cursor = collection.find(query);
@@ -70,7 +78,7 @@ public class ProductsDAO {
 
 	public ProductsDTO get(Integer id) {
         MyConnection connection = new MyConnection();
-		DBCollection collection = connection.database().getCollection("products");
+		DBCollection collection = connection.database(Optional.of(city)).getCollection("products");
         
 		DBObject query = BasicDBObjectBuilder.start().add("code", id).get();
 		DBCursor cursor = collection.find(query);
@@ -84,7 +92,7 @@ public class ProductsDAO {
     
     public Boolean delete(Integer id) {
         MyConnection connection = new MyConnection();
-		DBCollection collection = connection.database().getCollection("products");
+		DBCollection collection = connection.database(Optional.of(city)).getCollection("products");
         
 		DBObject query = BasicDBObjectBuilder.start().add("code",id).get();
 		collection.remove(query);

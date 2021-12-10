@@ -1,6 +1,7 @@
 package com.lagenerica.api.DAO;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import com.lagenerica.api.DTO.SalesDTO;
 import com.lagenerica.api.DTO.SalesDetailsDTO;
@@ -12,6 +13,15 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 public class SalesDAO {
+
+    private String city;
+    
+    public SalesDAO(String city) {
+        this.city = city;
+    }
+
+
+    
 
     private static DBObject createDBObject(SalesDTO sale) {
         BasicDBObjectBuilder docBuilder = BasicDBObjectBuilder.start();
@@ -38,7 +48,7 @@ public class SalesDAO {
         DBObject doc = createDBObject(sale);
 
         MyConnection connection = new MyConnection();
-        DBCollection collection = connection.database().getCollection("sales");
+        DBCollection collection = connection.database(Optional.of(city)).getCollection("sales");
 
         collection.insert(doc);
 
@@ -48,7 +58,7 @@ public class SalesDAO {
 
     public SalesDTO getLast() {
         MyConnection connection = new MyConnection();
-        DBCollection collection = connection.database().getCollection("sales");
+        DBCollection collection = connection.database(Optional.of(city)).getCollection("sales");
         DBObject sort = BasicDBObjectBuilder.start().add("_id", -1).get();
         DBCursor cursor = collection.find().sort(sort);
         while (cursor.hasNext()) {
@@ -78,7 +88,7 @@ public class SalesDAO {
         ArrayList<SalesDTO> list = new ArrayList<SalesDTO>();
 
         MyConnection connection = new MyConnection();
-        DBCollection collection = connection.database().getCollection("sales");
+        DBCollection collection = connection.database(Optional.of(city)).getCollection("sales");
 
         DBObject query = BasicDBObjectBuilder.start().get();
         DBCursor cursor = collection.find(query);
@@ -105,12 +115,43 @@ public class SalesDAO {
         return list;
     }
 
+    public ArrayList<SalesDTO> list(String city) {
+        ArrayList<SalesDTO> list = new ArrayList<SalesDTO>();
+
+        MyConnection connection = new MyConnection();
+        DBCollection collection = connection.database(Optional.of(city)).getCollection("sales");
+
+        DBObject query = BasicDBObjectBuilder.start().get();
+        DBCursor cursor = collection.find(query);
+        while (cursor.hasNext()) {
+            DBObject resultObject = cursor.next();
+            
+
+            ArrayList<SalesDetailsDTO> listDetails = new ArrayList<SalesDetailsDTO>();
+            BasicDBList saleDetailsList = (BasicDBList) resultObject.get("details");
+            for (Object detail : saleDetailsList.toArray()) {
+                BasicDBObject saleDatail = (BasicDBObject) detail;
+
+                SalesDetailsDTO obj = new SalesDetailsDTO(saleDatail.getInt("amount"), saleDatail.getInt("code"),
+                        saleDatail.getDouble("total"), saleDatail.getDouble("value"), saleDatail.getDouble("iva"));
+                listDetails.add(obj);
+            }
+            SalesDTO sale = new SalesDTO(Integer.parseInt(resultObject.get("code").toString()),
+                    Integer.parseInt(resultObject.get("identification").toString()), listDetails,
+                    Integer.parseInt(resultObject.get("total").toString()),
+                    Integer.parseInt(resultObject.get("value").toString()));
+            list.add(sale);
+        }
+        connection.disconect();
+        return list;
+    }
+
     public ArrayList<SalesDTO> listByCustomer() {
         ArrayList<SalesDTO> list = new ArrayList<SalesDTO>();
 
         MyConnection connection = new MyConnection();
-        DBCollection collection = connection.database().getCollection("sales");
-        DBCollection collectionCustomer = connection.database().getCollection("customers");
+        DBCollection collection = connection.database(Optional.of(city)).getCollection("sales");
+        DBCollection collectionCustomer = connection.database(Optional.of(city)).getCollection("customers");
 
         DBObject query = BasicDBObjectBuilder.start().get();
         DBCursor cursor = collection.find(query);
@@ -148,7 +189,7 @@ public class SalesDAO {
 
     public SalesDTO get(Integer id) {
         MyConnection connection = new MyConnection();
-        DBCollection collection = connection.database().getCollection("sales");
+        DBCollection collection = connection.database(Optional.of(city)).getCollection("sales");
 
         DBObject query = BasicDBObjectBuilder.start().add("code", id).get();
         DBCursor cursor = collection.find(query);

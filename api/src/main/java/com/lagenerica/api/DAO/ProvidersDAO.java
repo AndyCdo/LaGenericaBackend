@@ -1,6 +1,7 @@
 package com.lagenerica.api.DAO;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import com.lagenerica.api.DTO.ProvidersDTO;
 import com.mongodb.BasicDBObjectBuilder;
@@ -9,6 +10,12 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 public class ProvidersDAO {
+
+    private String city;
+    
+    public ProvidersDAO(String city) {
+        this.city = city;
+    }
 
     private static DBObject createDBObject(ProvidersDTO user) {
 		BasicDBObjectBuilder docBuilder = BasicDBObjectBuilder.start();
@@ -24,7 +31,7 @@ public class ProvidersDAO {
         DBObject doc = createDBObject(user);
 
         MyConnection connection = new MyConnection();
-		DBCollection collection = connection.database().getCollection("providers");
+		DBCollection collection = connection.database(Optional.of(city)).getCollection("providers");
 
         collection.insert(doc);
 
@@ -37,7 +44,7 @@ public class ProvidersDAO {
         DBObject doc = createDBObject(user);
 
         MyConnection connection = new MyConnection();
-		DBCollection collection = connection.database().getCollection("providers");
+		DBCollection collection = connection.database(Optional.of(city)).getCollection("providers");
         DBObject query = BasicDBObjectBuilder.start().add("nit", id).get();
 
 		collection.update(query, doc);
@@ -51,7 +58,7 @@ public class ProvidersDAO {
         ArrayList<ProvidersDTO> list =  new ArrayList<ProvidersDTO>();
 
         MyConnection connection = new MyConnection();
-		DBCollection collection = connection.database().getCollection("providers");
+		DBCollection collection = connection.database(Optional.of(city)).getCollection("providers");
         
 		DBObject query = BasicDBObjectBuilder.start().get();
 		DBCursor cursor = collection.find(query);
@@ -67,7 +74,7 @@ public class ProvidersDAO {
 
 	public ProvidersDTO get(Integer id) {
         MyConnection connection = new MyConnection();
-		DBCollection collection = connection.database().getCollection("providers");
+		DBCollection collection = connection.database(Optional.of(city)).getCollection("providers");
         
 		DBObject query = BasicDBObjectBuilder.start().add("nit", id).get();
 		DBCursor cursor = collection.find(query);
@@ -82,7 +89,7 @@ public class ProvidersDAO {
     
     public Boolean delete(Integer id) {
         MyConnection connection = new MyConnection();
-		DBCollection collection = connection.database().getCollection("providers");
+		DBCollection collection = connection.database(Optional.of(city)).getCollection("providers");
         
 		DBObject query = BasicDBObjectBuilder.start().add("nit",id).get();
 		collection.remove(query);

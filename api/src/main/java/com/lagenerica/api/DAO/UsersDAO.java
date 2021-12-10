@@ -1,6 +1,7 @@
 package com.lagenerica.api.DAO;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import com.lagenerica.api.DTO.UsersDTO;
 import com.mongodb.BasicDBObjectBuilder;
@@ -9,6 +10,12 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 public class UsersDAO {
+
+    private String city;
+    
+    public UsersDAO(String city) {
+        this.city = city;
+    }
 
     private static DBObject createDBObject(UsersDTO user) {
 		BasicDBObjectBuilder docBuilder = BasicDBObjectBuilder.start();
@@ -25,7 +32,7 @@ public class UsersDAO {
         DBObject doc = createDBObject(user);
 
         MyConnection connection = new MyConnection();
-		DBCollection collection = connection.database().getCollection("users");
+		DBCollection collection = connection.database(Optional.of(city)).getCollection("users");
 
         collection.insert(doc);
 
@@ -38,7 +45,7 @@ public class UsersDAO {
         DBObject doc = createDBObject(user);
 
         MyConnection connection = new MyConnection();
-		DBCollection collection = connection.database().getCollection("users");
+		DBCollection collection = connection.database(Optional.of(city)).getCollection("users");
         DBObject query = BasicDBObjectBuilder.start().add("identification", id).get();
 
 		collection.update(query, doc);
@@ -52,7 +59,7 @@ public class UsersDAO {
         ArrayList<UsersDTO> list =  new ArrayList<UsersDTO>();
 
         MyConnection connection = new MyConnection();
-		DBCollection collection = connection.database().getCollection("users");
+		DBCollection collection = connection.database(Optional.of(city)).getCollection("users");
         
 		DBObject query = BasicDBObjectBuilder.start().get();
 		DBCursor cursor = collection.find(query);
@@ -68,7 +75,7 @@ public class UsersDAO {
 
 	public UsersDTO get(Integer id) {
         MyConnection connection = new MyConnection();
-		DBCollection collection = connection.database().getCollection("users");
+		DBCollection collection = connection.database(Optional.of(city)).getCollection("users");
         
 		DBObject query = BasicDBObjectBuilder.start().add("identification", id).get();
 		DBCursor cursor = collection.find(query);
@@ -82,7 +89,7 @@ public class UsersDAO {
     
     public Boolean delete(Integer id) {
         MyConnection connection = new MyConnection();
-		DBCollection collection = connection.database().getCollection("users");
+		DBCollection collection = connection.database(Optional.of(city)).getCollection("users");
         
 		DBObject query = BasicDBObjectBuilder.start().add("identification",id).get();
 		collection.remove(query);
@@ -93,7 +100,7 @@ public class UsersDAO {
     
     public UsersDTO auth(UsersDTO user) {
         MyConnection connection = new MyConnection();
-		DBCollection collection = connection.database().getCollection("users");
+		DBCollection collection = connection.database(Optional.of(city)).getCollection("users");
         
 		DBObject query = BasicDBObjectBuilder.start().add("username",user.getUsername()).add("password", user.getPassword()).get();
 		DBCursor cursor = collection.find(query);

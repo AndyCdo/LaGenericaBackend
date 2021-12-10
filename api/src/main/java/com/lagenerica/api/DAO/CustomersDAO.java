@@ -1,6 +1,7 @@
 package com.lagenerica.api.DAO;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import com.lagenerica.api.DTO.CustomersDTO;
 import com.mongodb.BasicDBObjectBuilder;
@@ -9,6 +10,12 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 public class CustomersDAO {
+
+    private String city;
+    
+    public CustomersDAO(String city) {
+        this.city = city;
+    }
 
     private static DBObject createDBObject(CustomersDTO user) {
 		BasicDBObjectBuilder docBuilder = BasicDBObjectBuilder.start();
@@ -25,7 +32,7 @@ public class CustomersDAO {
         DBObject doc = createDBObject(user);
 
         MyConnection connection = new MyConnection();
-		DBCollection collection = connection.database().getCollection("customers");
+		DBCollection collection = connection.database(Optional.of(city)).getCollection("customers");
 
         collection.insert(doc);
 
@@ -38,7 +45,7 @@ public class CustomersDAO {
         DBObject doc = createDBObject(user);
 
         MyConnection connection = new MyConnection();
-		DBCollection collection = connection.database().getCollection("customers");
+		DBCollection collection = connection.database(Optional.of(city)).getCollection("customers");
         DBObject query = BasicDBObjectBuilder.start().add("identification", id).get();
 
 		collection.update(query, doc);
@@ -52,7 +59,7 @@ public class CustomersDAO {
         ArrayList<CustomersDTO> list =  new ArrayList<CustomersDTO>();
 
         MyConnection connection = new MyConnection();
-		DBCollection collection = connection.database().getCollection("customers");
+		DBCollection collection = connection.database(Optional.of(city)).getCollection("customers");
         
 		DBObject query = BasicDBObjectBuilder.start().get();
 		DBCursor cursor = collection.find(query);
@@ -69,7 +76,7 @@ public class CustomersDAO {
 
 	public CustomersDTO get(Integer id) {
         MyConnection connection = new MyConnection();
-		DBCollection collection = connection.database().getCollection("customers");
+		DBCollection collection = connection.database(Optional.of(city)).getCollection("customers");
         
 		DBObject query = BasicDBObjectBuilder.start().add("identification", id).get();
 		DBCursor cursor = collection.find(query);
@@ -83,7 +90,7 @@ public class CustomersDAO {
     
     public Boolean delete(Integer id) {
         MyConnection connection = new MyConnection();
-		DBCollection collection = connection.database().getCollection("customers");
+		DBCollection collection = connection.database(Optional.of(city)).getCollection("customers");
         
 		DBObject query = BasicDBObjectBuilder.start().add("identification",id).get();
 		collection.remove(query);
